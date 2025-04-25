@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Projekt2025.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +14,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+    builder.Services.AddDbContext<fgonline_dk_db_zooContext>(
+        options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 }
 
 app.UseHttpsRedirection();

@@ -1,0 +1,53 @@
+﻿DROP TABLE Member;
+DROP TABLE Admin;
+DROP TABLE Events;
+DROP TABLE Store;
+DROP TABLE Calendar;
+DROP TABLE StudyProgram;
+DROP TABLE StudyID;
+
+CREATE TABLE StudyProgram(
+StudyID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+Name VARCHAR(30) NOT NULL UNIQUE
+);
+
+CREATE TABLE Member(
+MemberID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+Name VARCHAR(30) NOT NULL,
+Email VARCHAR(50) NOT NULL,
+Phone VARCHAR(15) NOT NULL,
+Address VARCHAR(100) NOT NULL,
+StudyID INT NOT NULL FOREIGN KEY REFERENCES StudyProgram(StudyID) ON DELETE CASCADE
+);
+
+CREATE TABLE Admin(
+AdminID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+Name VARCHAR(30) NOT NULL,
+Email VARCHAR(50) NOT NULL UNIQUE,
+Phone VARCHAR(15) NOT NULL,
+Address VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Events(
+EventID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+Title VARCHAR(50) NOT NULL,
+EventDateTime DATETIME NOT NULL,
+Description VARCHAR(200) NOT NULL,
+Location VARCHAR(100) NOT NULL,
+Price int NOT NULL,
+Participants int NOT NULL
+);
+
+CREATE TABLE Calendar(
+CalendarID int PRIMARY KEY,
+EventID int NOT NULL FOREIGN KEY REFERENCES Events(EventID)
+);
+
+INSERT INTO StudyProgram(Name)
+VALUES ('Datamatiker');
+
+INSERT INTO Member(Name, Email, Phone, Address, StudyID)
+VALUES ('Frederik', 'frederik@zealand.dk', '88888888', 'København', 1);
+
+INSERT INTO Admin(Name, Email, Phone, Address)
+VALUES ('Bob', 'bob@zealand.dk', '77777777', 'Roskilde');
