@@ -1,10 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using Projekt2025.Interfaces;
 using Projekt2025.Models;
+using Projekt2025.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<fgonline_dk_db_zooContext>(
+        options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddTransient<IMember, MemberService>();
 
 var app = builder.Build();
 
@@ -14,8 +19,6 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
-    builder.Services.AddDbContext<fgonline_dk_db_zooContext>(
-        options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 }
 
 app.UseHttpsRedirection();
