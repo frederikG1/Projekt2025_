@@ -22,6 +22,11 @@ public partial class Admin
     public string Name { get; set; }
 
     [Required]
+    [StringLength(30)]
+    [Unicode(false)]
+    public string Password { get; set; }
+
+    [Required]
     [StringLength(50)]
     [Unicode(false)]
     public string Email { get; set; }
@@ -35,4 +40,8 @@ public partial class Admin
     [StringLength(100)]
     [Unicode(false)]
     public string Address { get; set; }
+
+    
+
+
 }
