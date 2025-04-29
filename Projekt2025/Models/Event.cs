@@ -20,7 +20,7 @@ public partial class Event
     public string Title { get; set; }
 
     [Column(TypeName = "datetime")]
-    public DateTime EventDateTime { get; set; }
+    public DateTime EventDateTimeStart { get; set; }
 
     [Required]
     [StringLength(200)]
@@ -35,6 +35,9 @@ public partial class Event
     public int Price { get; set; }
 
     public int Participants { get; set; }
+
+    [Column(TypeName = "datetime")]
+    public DateTime EventDateTimeEnd { get; set; }
 
     [InverseProperty("Event")]
     public virtual ICollection<Calendar> Calendars { get; set; } = new List<Calendar>();

@@ -38,6 +38,9 @@ public partial class Member
     [Column("StudyID")]
     public int StudyId { get; set; }
 
+    [InverseProperty("Member")]
+    public virtual NewsletterSub NewsletterSub { get; set; }
+
     [ForeignKey("StudyId")]
     [InverseProperty("Members")]
     public virtual StudyProgram Study { get; set; }
