@@ -16,7 +16,7 @@ namespace Projekt2025.Services
         }
 
 
-        // Denne metode skal returnere en liste af medlemmer
+        // Denne metode skal returnere en liste af medlemmer rr
         public IEnumerable<Member> GetMembers()
         {
             try
