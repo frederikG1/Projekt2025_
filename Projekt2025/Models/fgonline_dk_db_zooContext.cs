@@ -25,11 +25,13 @@ public partial class fgonline_dk_db_zooContext : DbContext
 
     public virtual DbSet<Member> Members { get; set; }
 
+    public virtual DbSet<NewsletterSub> NewsletterSubs { get; set; }
+
     public virtual DbSet<StudyProgram> StudyPrograms { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=mssql7.unoeuro.com;Initial Catalog=fgonline_dk_db_zoo;Persist Security Info=True;User ID=fgonline_dk;Password=aRmng352pGzdce9kwDbH");
+        => optionsBuilder.UseSqlServer("Data Source=mssql7.unoeuro.com;Initial Catalog=fgonline_dk_db_zoo;User ID=fgonline_dk;Password=aRmng352pGzdce9kwDbH");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -52,6 +54,9 @@ public partial class fgonline_dk_db_zooContext : DbContext
         modelBuilder.Entity<Event>(entity =>
         {
             entity.HasKey(e => e.EventId).HasName("PK__Events__7944C870879663A8");
+
+            entity.Property(e => e.EventDateTimeEnd).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.EventDateTimeStart).HasDefaultValueSql("(getdate())");
         });
 
         modelBuilder.Entity<Member>(entity =>
@@ -59,6 +64,18 @@ public partial class fgonline_dk_db_zooContext : DbContext
             entity.HasKey(e => e.MemberId).HasName("PK__Member__0CF04B3874CF7C2C");
 
             entity.HasOne(d => d.Study).WithMany(p => p.Members).HasConstraintName("FK__Member__StudyID__52593CB8");
+        });
+
+        modelBuilder.Entity<NewsletterSub>(entity =>
+        {
+            entity.HasKey(e => e.MemberId).HasName("PK__Newslett__0CF04B38008EAC1E");
+
+            entity.Property(e => e.MemberId).ValueGeneratedNever();
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+
+            entity.HasOne(d => d.Member).WithOne(p => p.NewsletterSub)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Newslette__Membe__6FE99F9F");
         });
 
         modelBuilder.Entity<StudyProgram>(entity =>

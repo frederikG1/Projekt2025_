@@ -35,8 +35,4 @@ public partial class Admin
     [StringLength(100)]
     [Unicode(false)]
     public string Address { get; set; }
-
-    
-
-
 }
