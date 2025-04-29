@@ -1,0 +1,28 @@
+﻿@page
+@model Projekt2025.Pages.AdminUser.AdminDashboardModel
+@{
+    ViewBag.Title = "Admin Dashboard";
+}
+
+<h2>Welcome to the Admin Dashboard</h2>
+<p>You are successfully logged in as admin.</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Events
+            </th>
+        </tr>
+    </thead>
+</table>
+
+
+
+<form method="post" asp-page-handler"Logout">
+    <button type="submit" class="btn btn-primary">Logout</button>
+</form>
+
+
+

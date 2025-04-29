@@ -19,7 +19,7 @@ namespace Projekt2025.Pages.AdminUser
         {
             if (Username == AdminUsername && Password == AdminPassword)
             {
-                return RedirectToPage("/AdminUser/AdminUser");
+                return RedirectToPage("/AdminUser/AdminDashboard");
             }
             else
             {
