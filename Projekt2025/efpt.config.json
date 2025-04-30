@@ -27,6 +27,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Login]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Member]",
          "ObjectType": 0
       },
