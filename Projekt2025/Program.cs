@@ -11,8 +11,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<fgonline_dk_db_zooContext>(
         options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<IMember, MemberService>();
+builder.Services.AddTransient<IAdmin, AdminService>();
 
 
+//Gemmer brugerens loginoplysninger i en cookie så den ved når man er logget ind og ud
 /*builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {

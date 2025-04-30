@@ -11,7 +11,7 @@ namespace Projekt2025.Pages.AdminUser
         [BindProperty]
         public string Password { get; set; }
 
-        //hardcoded admin login for test purposes
+        //hardcoded admin login 
         private readonly string AdminUsername = "admin";
         private readonly string AdminPassword = "admin123";
 
@@ -27,6 +27,7 @@ namespace Projekt2025.Pages.AdminUser
                 return Page();
             }
         }
+
 
         public void OnGet()
         {

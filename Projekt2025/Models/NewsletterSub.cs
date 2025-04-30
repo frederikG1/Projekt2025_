@@ -8,20 +8,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Projekt2025.Models;
 
-[Index("Email", Name = "UQ__Newslett__A9D105342FBABAD6", IsUnique = true)]
 public partial class NewsletterSub
 {
     [Key]
-    [Column("MemberID")]
-    public int MemberId { get; set; }
-
-    [Required]
     [StringLength(255)]
     public string Email { get; set; }
 
-    public bool IsActive { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime? SubscribedAt { get; set; }
 
-    [ForeignKey("MemberId")]
-    [InverseProperty("NewsletterSub")]
-    public virtual Member Member { get; set; }
+    public bool IsActive { get; set; }
 }

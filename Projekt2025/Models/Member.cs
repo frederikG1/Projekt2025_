@@ -39,7 +39,7 @@ public partial class Member
     public int StudyId { get; set; }
 
     [InverseProperty("Member")]
-    public virtual NewsletterSub NewsletterSub { get; set; }
+    public virtual ICollection<Login> Logins { get; set; } = new List<Login>();
 
     [ForeignKey("StudyId")]
     [InverseProperty("Members")]

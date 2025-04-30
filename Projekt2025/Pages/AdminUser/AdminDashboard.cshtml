@@ -7,22 +7,52 @@
 <h2>Welcome to the Admin Dashboard</h2>
 <p>You are successfully logged in as admin.</p>
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Events
-            </th>
-        </tr>
-    </thead>
-</table>
+<p>
+    <a asp-page="Create">Create New Event</a>
+</p>
 
 
 
-<form method="post" asp-page-handler"Logout">
+
+@foreach (var item in Model.Events)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => item.EventId)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => item.EventDateTimeStart)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => item.Participants)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => item.EventDateTimeEnd)
+                </td>
+            </tr>
+        </thead>
+    </table>
+}
+
+
+<form method="post" asp-page-handler="Logout">
     <button type="submit" class="btn btn-primary">Logout</button>
 </form>
+
 
 
 
