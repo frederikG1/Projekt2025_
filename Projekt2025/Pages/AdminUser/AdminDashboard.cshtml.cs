@@ -6,11 +6,11 @@ namespace Projekt2025.Pages.AdminUser
 {
     public class AdminDashboardModel : PageModel
     {
-        /*public async Task<IActionResult> OnPostLogoutAsync()
+        public async Task<IActionResult> OnPostLogoutAsync()
         {
             await HttpContext.SignOutAsync();
             return RedirectToPage("/AdminUser/AdminUser");
-        }*/
+        }
         
         public void OnGet()
         {
