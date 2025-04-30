@@ -15,12 +15,12 @@ builder.Services.AddTransient<IAdmin, AdminService>();
 
 
 //Gemmer brugerens loginoplysninger i en cookie så den ved når man er logget ind og ud
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+/*builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.LoginPath = "/AdminUser/AdminUser";
         options.LogoutPath = "/AdminUser/AdminUser";
-    });
+    });*/
 
 var app = builder.Build();
 
