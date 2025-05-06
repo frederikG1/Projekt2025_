@@ -41,4 +41,8 @@ public partial class Event
 
     [InverseProperty("Event")]
     public virtual ICollection<Calendar> Calendars { get; set; } = new List<Calendar>();
+
+    [ForeignKey("EventId")]
+    [InverseProperty("Events")]
+    public virtual ICollection<Member> Members { get; set; } = new List<Member>();
 }
