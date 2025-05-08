@@ -28,23 +28,23 @@ public class IndexModel : PageModel
     }
 
 
-    public IActionResult OnPost()
-    {
-        if (!ModelState.IsValid)
-        {
-            return Page();
-        }
+    //public IActionResult OnPost()
+    //{
+    //    if (!ModelState.IsValid)
+    //    {
+    //        return Page();
+    //    }
 
-        var bruger = _context.Logins
-            .FirstOrDefault(l => l.Username == login.Username && l.Password == login.Password);
+    //    var bruger = _context.Logins
+    //        .FirstOrDefault(l => l.Username == login.Username && l.Password == login.Password);
 
-        if (bruger != null)
-        {
-            // Her kunne du fx gemme bruger i session og redirecte
-            return RedirectToPage("/MemberArea"); // ændr til din ønskede side
-        }
+    //    if (bruger != null)
+    //    {
 
-        LoginError = "Forkert brugernavn eller adgangskode.";
-        return Page(); // vis fejl
-    }
+    //        return RedirectToPage("/MemberArea");
+    //    }
+
+    //    LoginError = "Forkert brugernavn eller adgangskode.";
+    //    return Page();
+    //}
 }
