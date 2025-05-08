@@ -1,0 +1,55 @@
+﻿@page
+@model Projekt2025.Pages.MemberModel
+@{
+}
+
+@* https://mdbootstrap.com/docs/standard/extended/registration/
+ *@
+
+<form asp-action="Create" method="post">
+    <form method="post">
+        <div>
+            <label asp-for="member.Name"></label>
+            <input asp-for="member.Name" class="form-control" />
+            <span asp-validation-for="member.Name" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="member.Email"></label>
+            <input asp-for="member.Email" class="form-control" />
+            <span asp-validation-for="member.Email" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="member.Phone"></label>
+            <input asp-for="member.Phone" class="form-control" />
+            <span asp-validation-for="member.Phone" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="member.Address"></label>
+            <input asp-for="member.Address" class="form-control" />
+            <span asp-validation-for="member.Address" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="member.StudyId">Study Program</label>
+            <select asp-for="member.StudyId" class="form-control" asp-items="Model.studyProgram"></select>
+            <span asp-validation-for="member.StudyId" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="login.Username">Brugernavn</label>
+            <input asp-for="login.Username" class="form-control" />
+            <span asp-validation-for="login.Username" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="login.Password">Adgangskode</label>
+            <input asp-for="login.Password" type="password" class="form-control" />
+            <span asp-validation-for="login.Password" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Member</button>
+    </form>
+</form>
