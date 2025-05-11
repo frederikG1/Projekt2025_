@@ -9,14 +9,16 @@ namespace Projekt2025.Pages.AdminUser
 {
     public class AdminDashboardModel : PageModel
     {
-        public AdminDashboardModel(IAdmin adminService)
+        private readonly fgonline_dk_db_zooContext _context;
+        public AdminDashboardModel(IAdmin adminService, fgonline_dk_db_zooContext context)
         {
             _adminService = adminService;
+            _context = context;
         }
 
         private readonly IAdmin _adminService;
 
-        public IEnumerable<Event> Events { get; set; } 
+        public IEnumerable<Event> Events { get; set; }
 
         public void OnGet()
         {

@@ -14,7 +14,7 @@ builder.Services.AddDbContext<fgonline_dk_db_zooContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddTransient<IMember, MemberService>();
-builder.Services.AddTransient<IAdmin, AdminService>();
+builder.Services.AddScoped<IAdmin, AdminService>();
 
 var app = builder.Build();
 
