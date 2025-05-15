@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Projekt2025.Interfaces;
@@ -10,13 +11,12 @@ namespace Projekt2025.Pages.AdminUser
     public class AdminDashboardModel : PageModel
     {
         private readonly fgonline_dk_db_zooContext _context;
+        private readonly IAdmin _adminService;
         public AdminDashboardModel(IAdmin adminService, fgonline_dk_db_zooContext context)
         {
             _adminService = adminService;
             _context = context;
         }
-
-        private readonly IAdmin _adminService;
 
         public IEnumerable<Event> Events { get; set; }
 
@@ -27,7 +27,7 @@ namespace Projekt2025.Pages.AdminUser
 
         public async Task<IActionResult> OnPostLogoutAsync()
         {
-            await HttpContext.SignOutAsync();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToPage("/AdminUser/AdminUser");
         }
         
