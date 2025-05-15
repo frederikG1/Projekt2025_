@@ -8,7 +8,7 @@
 <p>You are successfully logged in as admin.</p>
 
 <p>
-    <a asp-page="Create">Create New Event</a>
+    <a asp-page="CreateEvent">Create New Event</a>
 </p>
 
 
@@ -20,29 +20,17 @@
         <table class="table">
             <thead>
                 <tr>
+                    <td>@item.EventId</td>
+                    <td>@item.Title</td>
+                    <td>@item.EventDateTimeStart</td>
+                    <td>@item.Description</td>
+                    <td>@item.Location</td>
+                    <td>@item.Price</td>
+                    <td>@item.Participants</td>
+                    <td>@item.EventDateTimeEnd</td>
                     <td>
-                        <ul>@item.EventId</ul>
-                    </td>
-                    <td>
-                        <ul>@item.Title</ul>
-                    </td>
-                    <td>
-                        <ul>@item.EventDateTimeStart</ul>
-                    </td>
-                    <td>
-                        <ul>@item.Description</ul>
-                    </td>
-                    <td>
-                        <ul>@item.Location</ul>
-                    </td>
-                    <td>
-                        <ul>@item.Price</ul>
-                    </td>
-                    <td>
-                        <ul>@item.Participants</ul>
-                    </td>
-                    <td>
-                        <ul>@item.EventDateTimeEnd</ul>
+                        <a asp-page="EditEvent" asp-route-id="@item.EventId">Edit</a> |
+                        <a asp-page="DeleteEvent" asp-route-id="@item.EventId">Delete</a>
                     </td>
                 </tr>
             </thead>
