@@ -13,7 +13,7 @@ namespace Projekt2025.Pages.AdminUser
 
         //hardcoded admin login 
         private readonly string AdminUsername = "admin";
-        private readonly string AdminPassword = "admin123";
+        private readonly string AdminPassword = "admin12";
 
         public IActionResult OnPostLogin()
         {

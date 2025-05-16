@@ -15,6 +15,13 @@ builder.Services.AddDbContext<fgonline_dk_db_zooContext>(
 
 builder.Services.AddTransient<IMember, MemberService>();
 builder.Services.AddScoped<IAdmin, AdminService>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/AdminUser/AdminUser";
+        options.LogoutPath = "/AdminUser/AdminUser";
+        options.AccessDeniedPath = "/AdminUser/AdminUser";
+    });
 
 var app = builder.Build();
 
