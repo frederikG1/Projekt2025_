@@ -13,46 +13,44 @@
 
 
 
-
-@foreach (var item in Model.Events)
+@if (Model.Events != null && Model.Events.Any())
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => item.EventId)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => item.EventDateTimeStart)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => item.Location)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => item.Participants)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => item.EventDateTimeEnd)
-                </td>
-            </tr>
-        </thead>
-    </table>
+    @foreach (var item in Model.Events)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>
+                        <ul>@item.EventId</ul>
+                    </td>
+                    <td>
+                        <ul>@item.Title</ul>
+                    </td>
+                    <td>
+                        <ul>@item.EventDateTimeStart</ul>
+                    </td>
+                    <td>
+                        <ul>@item.Description</ul>
+                    </td>
+                    <td>
+                        <ul>@item.Location</ul>
+                    </td>
+                    <td>
+                        <ul>@item.Price</ul>
+                    </td>
+                    <td>
+                        <ul>@item.Participants</ul>
+                    </td>
+                    <td>
+                        <ul>@item.EventDateTimeEnd</ul>
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    }
 }
 
 
 <form method="post" asp-page-handler="Logout">
     <button type="submit" class="btn btn-primary">Logout</button>
 </form>
-
-
-
-

@@ -33,7 +33,7 @@ public partial class fgonline_dk_db_zooContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=mssql7.unoeuro.com;Initial Catalog=fgonline_dk_db_zoo;Persist Security Info=True;User ID=fgonline_dk;Password=aRmng352pGzdce9kwDbH");
+        => optionsBuilder.UseSqlServer("Data Source=mssql7.unoeuro.com;Initial Catalog=fgonline_dk_db_zoo;Persist Security Info=True;User ID=fgonline_dk;Password=aRmng352pGzdce9kwDbH;Encrypt=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -73,6 +73,25 @@ public partial class fgonline_dk_db_zooContext : DbContext
             entity.HasKey(e => e.MemberId).HasName("PK__Member__0CF04B3874CF7C2C");
 
             entity.HasOne(d => d.Study).WithMany(p => p.Members).HasConstraintName("FK__Member__StudyID__52593CB8");
+
+            entity.HasMany(d => d.Events).WithMany(p => p.Members)
+                .UsingEntity<Dictionary<string, object>>(
+                    "MemberEventList",
+                    r => r.HasOne<Event>().WithMany()
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__MemberEve__Event__7B5B524B"),
+                    l => l.HasOne<Member>().WithMany()
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__MemberEve__Membe__7A672E12"),
+                    j =>
+                    {
+                        j.HasKey("MemberId", "EventId").HasName("PK__MemberEv__1B6407BF416C84C3");
+                        j.ToTable("MemberEventList");
+                        j.IndexerProperty<int>("MemberId").HasColumnName("MemberID");
+                        j.IndexerProperty<int>("EventId").HasColumnName("EventID");
+                    });
         });
 
         modelBuilder.Entity<NewsletterSub>(entity =>

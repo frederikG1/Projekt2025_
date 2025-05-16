@@ -1,0 +1,34 @@
+﻿@page
+@model Projekt2025.Pages.MemberPages.MyEventsModel
+@{
+    ViewData["Title"] = "Mine Events";
+}
+
+<h2>@Model.Member?.Name</h2>
+
+<form method="post" class="mb-3">
+    <button type="submit" name="setMember" value="6" class="btn btn-outline-primary">Log ind som Frederik (ID 6)</button>
+    <button type="submit" name="setMember" value="8" class="btn btn-outline-secondary">Log ind som Anna (ID 8)</button>
+</form>
+
+@if (Model.Events != null && Model.Events.Any())
+{
+    <h3>Dine Events</h3>
+    <ul class="list-group mt-2">
+        @foreach (var e in Model.Events)
+        {
+            <li class="list-group-item">
+                <strong>@e.Title</strong><br />
+                <small>@e.EventDateTimeStart.ToString("yyyy-MM-dd HH:mm")</small>
+            </li>
+        }
+    </ul>
+}
+else if (Model.Member != null)
+{
+    <p class="text-muted">Du har ingen events</p>
+}
+else
+{
+    <p class="text-muted">Vælg en bruger</p>
+}

@@ -44,4 +44,8 @@ public partial class Member
     [ForeignKey("StudyId")]
     [InverseProperty("Members")]
     public virtual StudyProgram Study { get; set; }
+
+    [ForeignKey("MemberId")]
+    [InverseProperty("Members")]
+    public virtual ICollection<Event> Events { get; set; } = new List<Event>();
 }
