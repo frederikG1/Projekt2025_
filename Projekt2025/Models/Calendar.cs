@@ -20,5 +20,5 @@ public partial class Calendar
 
     [ForeignKey("EventId")]
     [InverseProperty("Calendars")]
-    public virtual Event Event { get; set; }
+    public virtual Event Events { get; set; }
 }

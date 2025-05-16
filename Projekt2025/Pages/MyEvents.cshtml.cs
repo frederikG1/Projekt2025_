@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Projekt2025.Models;
 
+
 namespace Projekt2025.Pages.MemberPages;
 
 public class MyEventsModel : PageModel
@@ -14,9 +15,9 @@ public class MyEventsModel : PageModel
         _context = context;
     }
 
-    public Member? Member { get; set; }
+    public Member Member { get; set; }
 
-    public List<Event> Events { get; set; } = new();
+    public List<Models.Event> Events { get; set; } = new();
 
     public async Task<IActionResult> OnGetAsync()
     {
@@ -31,7 +32,7 @@ public class MyEventsModel : PageModel
             .Include(m => m.Events)
             .FirstOrDefaultAsync(m => m.MemberId == memberId);
 
-        Events = Member?.Events.ToList() ?? new List<Event>();
+        Events = Member.Events.ToList() ?? new List<Event>();
         return Page();
     }
 
