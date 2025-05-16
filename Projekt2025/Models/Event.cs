@@ -39,7 +39,7 @@ public partial class Event
     [Column(TypeName = "datetime")]
     public DateTime EventDateTimeEnd { get; set; }
 
-    [InverseProperty("Event")]
+    [InverseProperty("Events")]
     public virtual ICollection<Calendar> Calendars { get; set; } = new List<Calendar>();
 
     [ForeignKey("EventId")]
