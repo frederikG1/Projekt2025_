@@ -1,0 +1,57 @@
+@page
+@model EventKalender.Pages.EventKalenderModel
+
+@{
+    ViewData["Title"] = "EventKalender";
+
+    var grupperet = EventKalender.Pages.EventKalenderModel.Begivenheder
+        .OrderBy(b => b.DatoTid)
+        .GroupBy(b => b.DatoTid.Date);
+}
+
+<h1>Event Kalender</h1>
+
+<form method="post">
+    <label for="Titel">Titel:</label>
+    <input type="text" id="Titel" name="Titel" required />
+
+    <label for="DatoTid">Dato og tid:</label>
+    <input type="datetime-local" id="DatoTid" name="DatoTid" required />
+
+    <label for="Beskrivelse">Beskrivelse:</label>
+    <textarea id="Beskrivelse" name="Beskrivelse" rows="3" placeholder="Skriv noget om begivenheden..."></textarea>
+
+    <button type="submit">Opret begivenhed</button>
+</form>
+
+<hr />
+
+<h2>Dine begivenheder:</h2>
+
+@if (!grupperet.Any())
+{
+    <p>Ingen begivenheder endnu.</p>
+}
+else
+{
+    foreach (var dag in grupperet)
+    {
+        foreach (var b in dag.Select((val, i) => new { val, i }))
+        {
+            <div class="event-card">
+                <div class="event-title"><strong>@b.val.Titel</strong></div>
+                <div class="event-date">@b.val.DatoTid.ToString("dd-MM-yyyy HH:mm")</div>
+
+                @if (!string.IsNullOrWhiteSpace(b.val.Beskrivelse))
+                {
+                    <div class="event-description">@b.val.Beskrivelse</div>
+                }
+                <form method="post" asp-page-handler="Slet">
+                    <input type="hidden" name="index" value="@EventKalender.Pages.EventKalenderModel.Begivenheder.IndexOf(b.val)" />
+                    <button type="submit" class="delete-button">Slet</button>
+                </form>
+            </div>
+
+        }
+    }
+}
