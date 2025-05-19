@@ -59,14 +59,15 @@ namespace Projekt2025.Pages
                 ModelState.AddModelError("login.Password","Adgangskoden skal være mindst 8 tegn, og indeholde mindst ét stort bogstav, ét lille bogstav og ét tal."); 
                 return Page();
             }
-            // Tilføjer og gemmer member i databasen
-            // mangler noget username og password
+        
 
             try
             {
+                //Tilføjer og gemmer Member i databasen
                 _context.Members.Add(member);
                 _context.SaveChanges();
 
+                //Tilføjer og gemmer Login i Databasen
                 login.MemberId = member.MemberId;
                 _context.Logins.Add(login);
                 _context.SaveChanges();

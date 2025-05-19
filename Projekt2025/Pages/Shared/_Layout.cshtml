@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@{
+    var isLoggedIn = Context.Session.GetInt32("MemberId") != null;
+    var username = Context.Session.GetString("Username");
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -21,6 +28,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
@@ -54,6 +62,33 @@
                     </ul>
                     </ul>
                 </div>
+            </div>
+            <div>
+                <ul class="navbar-nav ms-auto">
+                    @if (isLoggedIn)
+                    {
+                        <li class="nav-item">
+                            <span class="nav-link text-dark">Hej, @username!</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Profile">Min Profil</a>
+                        </li>
+                        <li class="nav-item">
+                            <form method="post" asp-page="/Profile" asp-page-handler="Logout" class="d-inline">
+                                <button class="btn btn-link nav-link text-dark" type="submit">Log ud</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Index">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/CreateMember">Opret Bruger</a>
+                        </li>
+                    }
+                </ul>
             </div>
         </nav>
     </header>

@@ -1,0 +1,20 @@
+﻿@page
+@model Projekt2025.Pages.ProfileModel
+@{
+}
+<div class="container-fluid mt-2">
+    <div class="card">
+        <div class="card-header">Din profil</div>
+        <div class="card-body">
+            <li>Navn: @Model.CurrentMember.Name</li>
+            <li>Email: @Model.CurrentMember.Email</li>
+            <li>Telefonnummer: @Model.CurrentMember.Phone</li>
+            <li>Adresse: @Model.CurrentMember.Address</li>
+            <li>Studieretning: @Model.CurrentMember.Study?.Name</li>
+
+            <form method="post" asp-page-handler="Logout">
+                <button type="submit" class="btn">Log ud</button>
+            </form></>
+        </div>
+    </div>
+</div>

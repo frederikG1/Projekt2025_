@@ -1,88 +1,46 @@
 ﻿@page
+@using Microsoft.AspNetCore.Http
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    var isLoggedIn = HttpContext.Session.GetInt32("MemberId") != null;
 }
 
 
 
-<html lang="da">
-<head>
-    <meta charset="UTF-8">
-    <title>Profil</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+@if (!isLoggedIn)
+{
+    <form method="post" class="p-4 border rounded bg-white shadow-sm" style="max-width: 400px;">
+        <h4 class="mb-3 text-center">Login</h4>
 
-    <style>
-        body {
-            background-color: antiquewhite;
-            font-family: 'Cal Sans', sans-serif;
-        }
-    </style>
-</head>
-
-
-<body>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-5">
-                <div class="card p-4 text-center">
-                    <h5 class="card-title">Opret Profil</h5>
-                    <p class="card-text">
-                        Opret din profil og vær med, når vi samler elever til sjove, lærerige og sociale arrangementer.
-                        Gå ikke glip af fællesskabet – tilmeld dig i dag!
-                    </p>
-                    <button class="btn btn-outline-secondary" onclick="window.location.href='Member'">Opret Bruger</button>
-                </div>
-            </div>
-
-
-            <div class="col-md-5">
-                <div class="card p-4 text-center">
-                    <h5 class="card-title">Login</h5>
-                    <form method="post">
-                        <div>
-                            <label asp-for="login.Username">Brugernavn</label>
-                            <input asp-for="login.Username" class="form-control" />
-                            <span asp-validation-for="login.Username" class="text-danger"></span>
-                        </div>
-
-                        <div class="mt-2">
-                            <label asp-for="login.Password">Adgangskode</label>
-                            <input asp-for="login.Password" type="password" class="form-control" />
-                            <span asp-validation-for="login.Password" class="text-danger"></span>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary mt-3">Log ind</button>
-
-                        @if (!string.IsNullOrEmpty(Model.LoginError))
-                        {
-                            <div class="alert alert-danger mt-2">@Model.LoginError</div>
-                        }
-                    </form>
-                </div>
-            </div>
+        <div class="mb-3">
+            <label asp-for="login.Username" class="form-label">Brugernavn</label>
+            <input asp-for="login.Username" class="form-control" />
+            <span asp-validation-for="login.Username" class="text-danger"></span>
         </div>
+
+        <div class="mb-3">
+            <label asp-for="login.Password" class="form-label">Adgangskode</label>
+            <input asp-for="login.Password" type="password" class="form-control" />
+            <span asp-validation-for="login.Password" class="text-danger"></span>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Log ind</button>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.LoginError))
+        {
+            <div class="alert alert-danger mt-3">@Model.LoginError</div>
+        }
+    </form>
+}
+else
+{
+    <div class="alert alert-success">
+        Du er allerede logget ind. <a asp-page="/Profile">Gå til din profil</a>
     </div>
-</body>
-</html>
+}
 
 
-@*
-<body style="background-color:antiquewhite">
-    <div class="card rounded-6" style="width: 24rem"
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
-        <p1 class="cal-sans-regular">Opret din profil og vær med, når vi samler elever til sjove, lærerige og sociale arrangementer. Gå ikke glip af fællesskabet – tilmeld dig i dag!
 
-        </p1>
-            <div class="col-lg-9">
-                <div class="align-content-center">
-                    <button class="btn btn-outline-secondary" onclick="window.location.href='Member'">Opret Bruger</button>
-                </div>
-            </div>
-    </div>
-</body>
-*@

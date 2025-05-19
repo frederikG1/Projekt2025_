@@ -5,6 +5,7 @@ using Projekt2025.Models;
 
 namespace Projekt2025.Pages;
 
+
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
@@ -16,35 +17,27 @@ public class IndexModel : PageModel
         _logger = logger;
     }
 
-
-
     [BindProperty]
     public Login login { get; set; }
-
     public string LoginError { get; set; }
-    public void OnGet()
-    {
-
-    }
-
+    
 
     public IActionResult OnPost()
     {
-        if (!ModelState.IsValid)
-        {
-            return Page();
-        }
-
-        var bruger = _context.Logins
+        var user = _context.Logins
             .FirstOrDefault(l => l.Username == login.Username && l.Password == login.Password);
 
-        if (bruger != null)
+        if (user != null)
         {
-            // Her kunne du fx gemme bruger i session og redirecte
-            return RedirectToPage("/MemberArea"); // ændr til din ønskede side
+            HttpContext.Session.SetInt32("MemberId", user.MemberId);
+            HttpContext.Session.SetString("Username", user.Username);
+            return RedirectToPage("/Profile");
         }
 
-        LoginError = "Forkert brugernavn eller adgangskode.";
-        return Page(); // vis fejl
+        LoginError = "Forkert brugernavn eller adgangskode";
+        return Page();
     }
+
+
+
 }
