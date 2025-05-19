@@ -1,0 +1,37 @@
+﻿@page
+@model Projekt2025.Pages.AlleEventsModel
+@{
+    ViewData["Title"] = "AlleEvents";
+}
+@if (Model.Events != null && Model.Events.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>EventStart</th>
+                <th>EventEnd</th>
+                <th>Beskrivelse</th>
+                <th>Lokation</th>
+                <th>Pris</th>
+                <th>Deltagere</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var evt in Model.Events)
+            {
+                <tr>
+                    <td>@evt.Title</td>
+                    <td>@evt.EventDateTimeStart.ToString("dd-MM-yyyy HH:mm")</td>
+                    <td>@evt.EventDateTimeEnd.ToString("dd-MM-yyyy HH:mm")</td>
+                    <td>@evt.Description</td>
+                    <td>@evt.Location</td>
+                    <td>@evt.Price.ToString("dk")</td>
+                    <td>@evt.Participants</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
