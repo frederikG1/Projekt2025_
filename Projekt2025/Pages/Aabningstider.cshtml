@@ -1,0 +1,43 @@
+﻿@page
+@model Projekt2025.Pages.AabningstiderModel
+@{
+    ViewData["Title"] = "Åbningstider";
+}
+
+<style>
+    .container-flex {
+        display: flex;
+        gap: 40px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+    }
+
+    .box {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        flex: 1 1 300px;
+    }
+
+    a {
+        color: black;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<h1>Åbningstider</h1>
+
+<div class="container-flex">
+    <div class="box">
+        @Html.Raw(Model.AdresseHtml)
+    </div>
+    <div class="box">
+        @Html.Raw(Model.AabningstiderHtml)
+    </div>
+</div>
