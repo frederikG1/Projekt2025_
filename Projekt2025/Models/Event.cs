@@ -39,7 +39,9 @@ public partial class Event
     [Column(TypeName = "datetime")]
     public DateTime EventDateTimeEnd { get; set; }
 
-    [InverseProperty("Events")]
+    public int? MaxParticipants { get; set; }
+
+    [InverseProperty("Event")]
     public virtual ICollection<Calendar> Calendars { get; set; } = new List<Calendar>();
 
     [ForeignKey("EventId")]

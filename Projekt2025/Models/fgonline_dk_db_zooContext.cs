@@ -48,7 +48,7 @@ public partial class fgonline_dk_db_zooContext : DbContext
 
             entity.Property(e => e.CalendarId).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Events).WithMany(p => p.Calendars)
+            entity.HasOne(d => d.Event).WithMany(p => p.Calendars)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Calendar__EventI__59FA5E80");
         });
