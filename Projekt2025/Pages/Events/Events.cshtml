@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "Events";
 }
-<a asp-page="/EventKalender" class="btn btn-primary"> Vis events i kalenderen </a>
-<a asp-page="/AlleEvents" class="btn btn-primary"> Se Alle Events </a>
+<a asp-page="/Events/EventKalender" class="btn btn-primary"> Vis events i kalenderen </a>
+<a asp-page="/Events/AlleEvents" class="btn btn-primary"> Se Alle Events </a>
 
 
 <h1>Upcoming Events</h1>
@@ -36,15 +36,14 @@
                     <td>@evt.Price.ToString("dk")</td>
                     <td>@evt.Participants</td>
                 </tr>
-            <td>
-                <form method="post">
-                    <button type="submit" class="btn btn-success">Tilmeld</button>
-                </form>
-            </td>
+                <td>
+                    <form method="post">
+                        <button type="submit" class="btn btn-success">Tilmeld</button>
+                    </form>
+                </td>
 
             }
         </tbody>
     </table>
-   
-}
 
+}
