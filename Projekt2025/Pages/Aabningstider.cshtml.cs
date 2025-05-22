@@ -1,34 +1,39 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.Collections.Generic;
 
 namespace Projekt2025.Pages
 {
     public class AabningstiderModel : PageModel
     {
-        public string AdresseHtml { get; set; }
-        public string AabningstiderHtml { get; set; }
+        // Model til én dags åbningstid
+        public class Aabningstid
+        {
+            public string Ugedag { get; set; } = "";
+            public string Tid { get; set; } = "Lukket";
+            public bool ErAaben => !Tid.ToLower().Contains("lukket");
+        }
+
+        // Listen med ugedage + tider
+        public List<Aabningstid> Aabningstider { get; set; } = new();
+
+        // Dagens dato (bruges til kalender, starter altid mandag)
+        public DateTime StartDato { get; set; } =
+            DateTime.Today.AddDays(-(int)(DateTime.Today.DayOfWeek + 6) % 7);
 
         public void OnGet()
         {
-            AdresseHtml = @"
-                <h2>Roskilde</h2>
-                <p>Maglegårdsvej 2 2B</p>
-                <p>4000 Roskilde</p>
-                <p>tlf 12 34 56 78</p>
-                <p><a href='https://www.google.com/maps/search/?api=1&query=Magleg�rdsvej+2+4000+Roskilde' target='_blank'>Find vej</a></p>
-            ";
-
-            AabningstiderHtml = @"
-                <h3>Åbningstider</h3>
-                <table style='border-spacing: 0;'>
-                    <tr><td>Mandag:</td><td style='padding-left: 10px;'>12:00-16:00</td></tr>
-                    <tr><td>Tirsdag:</td><td style='padding-left: 10px;'>12:00-16:00</td></tr>
-                    <tr><td>Onsdag:</td><td style='padding-left: 10px;'>12:00-16:00</td></tr>
-                    <tr><td>Torsdag:</td><td style='padding-left: 10px;'>12:00-16:00</td></tr>
-                    <tr><td>Fredag:</td><td style='padding-left: 10px;'>14:00-22:00</td></tr>
-                    <tr><td>Lørdag:</td><td style='padding-left: 10px;'>14:00-22:00</td></tr>
-                    <tr><td>Søndag:</td><td style='padding-left: 10px;'>12:00-16:00</td></tr>
-                </table>
-            ";
+            // Ugedage og tider
+            Aabningstider = new List<Aabningstid>
+            {
+                new Aabningstid { Ugedag = "Mandag", Tid = "12:00-16:00" },
+                new Aabningstid { Ugedag = "Tirsdag", Tid = "12:00-16:00" },
+                new Aabningstid { Ugedag = "Onsdag", Tid = "12:00-16:00" },
+                new Aabningstid { Ugedag = "Torsdag", Tid = "12:00-16:00" },
+                new Aabningstid { Ugedag = "Fredag", Tid = "14:00 - 17:00" },
+                new Aabningstid { Ugedag = "Lørdag", Tid = "Lukket" },
+                new Aabningstid { Ugedag = "Søndag", Tid = "Lukket" }
+            };
         }
     }
 }

@@ -1,50 +1,34 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Projekt2025.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace EventKalender.Pages
+namespace Projekt2025.Pages
 {
     public class EventKalenderModel : PageModel
     {
-        public class Begivenhed
+        private readonly fgonline_dk_db_zooContext _context;
+
+        public EventKalenderModel(fgonline_dk_db_zooContext context)
         {
-            public string Titel { get; set; } = "";
-            public string? Beskrivelse { get; set; }
-            public DateTime DatoTid { get; set; }
+            _context = context;
         }
 
-        public static List<Begivenhed> Begivenheder = new();
+        public List<Event> KommendeEvents { get; set; } = new();
 
-        [BindProperty]
-        public string? Titel { get; set; }
+        // Kalenderen starter altid på mandag
+        public DateTime StartDato { get; set; } =
+            DateTime.Today.AddDays(-(int)(DateTime.Today.DayOfWeek + 6) % 7);
 
-        [BindProperty]
-        public string? Beskrivelse { get; set; }
-
-        [BindProperty]
-        public DateTime? DatoTid { get; set; }
-
-        public void OnGet() { }
-
-        public void OnPost()
+        public void OnGet()
         {
-            if (!string.IsNullOrWhiteSpace(Titel) && DatoTid.HasValue)
-            {
-                Begivenheder.Add(new Begivenhed
-                {
-                    Titel = Titel,
-                    Beskrivelse = Beskrivelse,
-                    DatoTid = DatoTid.Value
-                });
-            }
-        }
+            var slutDato = StartDato.AddDays(28); // 4 uger frem
 
-        public IActionResult OnPostSlet(int index)
-        {
-            if (index >= 0 && index < Begivenheder.Count)
-            {
-                Begivenheder.RemoveAt(index);
-            }
-            return RedirectToPage();
+            KommendeEvents = _context.Events
+                .Where(e => e.EventDateTimeStart >= StartDato && e.EventDateTimeStart <= slutDato)
+                .OrderBy(e => e.EventDateTimeStart)
+                .ToList();
         }
     }
 }

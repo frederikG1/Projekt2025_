@@ -1,57 +1,55 @@
 @page
-@model EventKalender.Pages.EventKalenderModel
-
+@model Projekt2025.Pages.EventKalenderModel
 @{
-    ViewData["Title"] = "EventKalender";
+    ViewData["Title"] = "Eventkalender";
 
-    var grupperet = EventKalender.Pages.EventKalenderModel.Begivenheder
-        .OrderBy(b => b.DatoTid)
-        .GroupBy(b => b.DatoTid.Date);
+    var grupperet = Model.KommendeEvents
+        .GroupBy(e => e.EventDateTimeStart.Date)
+        .ToDictionary(g => g.Key, g => g.ToList());
 }
 
-<h1>Event Kalender</h1>
+<h1>Eventkalender</h1>
 
-<form method="post">
-    <label for="Titel">Titel:</label>
-    <input type="text" id="Titel" name="Titel" required />
-
-    <label for="DatoTid">Dato og tid:</label>
-    <input type="datetime-local" id="DatoTid" name="DatoTid" required />
-
-    <label for="Beskrivelse">Beskrivelse:</label>
-    <textarea id="Beskrivelse" name="Beskrivelse" rows="3" placeholder="Skriv noget om begivenheden..."></textarea>
-
-    <button type="submit">Opret begivenhed</button>
-</form>
-
-<hr />
-
-<h2>Dine begivenheder:</h2>
-
-@if (!grupperet.Any())
-{
-    <p>Ingen begivenheder endnu.</p>
-}
-else
-{
-    foreach (var dag in grupperet)
-    {
-        foreach (var b in dag.Select((val, i) => new { val, i }))
+<table style="border-collapse: collapse; border: 1px solid #ccc;">
+    <thead>
+        <tr>
+            @for (int i = 0; i < 7; i++)
+            {
+                var dag = Model.StartDato.AddDays(i);
+                <th style="padding: 10px; border: 1px solid #ccc; background-color: #eee; text-align: center;">
+                    @dag.ToString("dddd", new System.Globalization.CultureInfo("da-DK"))
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for (int uge = 0; uge < 4; uge++)
         {
-            <div class="event-card">
-                <div class="event-title"><strong>@b.val.Titel</strong></div>
-                <div class="event-date">@b.val.DatoTid.ToString("dd-MM-yyyy HH:mm")</div>
-
-                @if (!string.IsNullOrWhiteSpace(b.val.Beskrivelse))
+            <tr>
+                @for (int i = 0; i < 7; i++)
                 {
-                    <div class="event-description">@b.val.Beskrivelse</div>
-                }
-                <form method="post" asp-page-handler="Slet">
-                    <input type="hidden" name="index" value="@EventKalender.Pages.EventKalenderModel.Begivenheder.IndexOf(b.val)" />
-                    <button type="submit" class="delete-button">Slet</button>
-                </form>
-            </div>
+                    var dato = Model.StartDato.AddDays(uge * 7 + i);
+                    <td style="vertical-align: top; border: 1px solid #ccc; padding: 10px; width: 14%;">
+                        <div><strong>@dato.ToString("dd-MM")</strong></div>
 
+                        @if (grupperet.ContainsKey(dato))
+                        {
+                            foreach (var e in grupperet[dato])
+                            {
+                                <div style="margin-top: 8px; background-color: #d6ecf3; padding: 5px; border-radius: 6px;">
+                                    <strong>@e.Title</strong><br />
+                                    <small>@e.EventDateTimeStart.ToString("HH:mm")</small><br />
+                                    <em>@e.Description</em>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div style="margin-top: 8px; color: #999;">Ingen events</div>
+                        }
+                    </td>
+                }
+            </tr>
         }
-    }
-}
+    </tbody>
+</table>

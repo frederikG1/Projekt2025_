@@ -4,40 +4,90 @@
     ViewData["Title"] = "Åbningstider";
 }
 
-<style>
-    .container-flex {
-        display: flex;
-        gap: 40px;
-        margin-top: 30px;
-        flex-wrap: wrap;
-    }
-
-    .box {
-        background: white;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.05);
-        flex: 1 1 300px;
-    }
-
-    a {
-        color: black;
-        font-weight: bold;
-        text-decoration: none;
-    }
-
-        a:hover {
-            text-decoration: underline;
-        }
-</style>
-
 <h1>Åbningstider</h1>
 
-<div class="container-flex">
-    <div class="box">
-        @Html.Raw(Model.AdresseHtml)
+<!-- JavaScript direkte i siden -->
+<script>
+    function toggleKalender() {
+        const box = document.getElementById("kalenderBox");
+        if (box) {
+            box.style.display = box.style.display === "none" ? "block" : "none";
+        }
+    }
+</script>
+
+<div style="display: flex; gap: 40px; flex-wrap: wrap;">
+
+    <!-- Venstre kolonne: Åbningstider og adresse -->
+    <div style="background-color: #f9f9f9; padding: 20px; border-radius: 12px; box-shadow: 0 0 6px rgba(0,0,0,0.1); min-width: 200px;">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <h3 style="margin: 0;">Åbningstider</h3>
+            <button onclick="toggleKalender()" style="font-size: 1.4rem; border: none; background: none; cursor: pointer;">📅</button>
+        </div>
+
+        <ul style="list-style-type: none; padding-left: 0; margin-top: 10px;">
+            @foreach (var tid in Model.Aabningstider)
+            {
+                <li>@tid.Ugedag – @tid.Tid</li>
+            }
+        </ul>
+
+        <hr />
+        <h2>Roskilde</h2>
+        <p>Maglegårdsvej 2 2B</p>
+        <p>Bygning Z</p>
+        <p>4000 Roskilde</p>
+        <p>tlf 12 34 56 78</p>
+        <p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Maglegårdsvej+2+4000+Roskilde" target="_blank">
+                Find vej
+            </a>
+        </p>
     </div>
-    <div class="box">
-        @Html.Raw(Model.AabningstiderHtml)
+
+    <!-- Højre kolonne: Kalender (skjult indtil knap klikkes) -->
+    <div id="kalenderBox" style="display: none;">
+        <h2></h2>
+        <table style="border-collapse: collapse; border: 1px solid #ccc;">
+            <thead>
+                <tr>
+                    @for (int i = 0; i < 7; i++)
+                    {
+                        var dag = Model.StartDato.AddDays(i);
+                        <th style="padding: 10px; border: 1px solid #ccc; background-color: #eee;">
+                            @dag.ToString("dddd", new System.Globalization.CultureInfo("da-DK"))
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @for (int uge = 0; uge < 4; uge++)
+                {
+                    <tr>
+                        @for (int i = 0; i < 7; i++)
+                        {
+                            var dag = Model.StartDato.AddDays(i + uge * 7);
+                            var dagNavn = dag.ToString("dddd", new System.Globalization.CultureInfo("da-DK"));
+                            var åbning = Model.Aabningstider.FirstOrDefault(a => a.Ugedag.ToLower() == dagNavn.ToLower());
+
+                            <td style="padding: 15px; text-align: center; border: 1px solid #ccc;">
+                                <div><strong>@dag.ToString("dd-MM")</strong></div>
+
+                                @if (åbning != null && åbning.ErAaben)
+                                {
+                                    <div style="margin-top: 8px; background-color: #c3f3d2; padding: 5px; border-radius: 6px;">
+                                        @åbning.Tid
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div style="margin-top: 8px; color: red;">Lukket</div>
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
