@@ -15,6 +15,7 @@ builder.Services.AddDbContext<fgonline_dk_db_zooContext>(
 
 builder.Services.AddTransient<IMember, MemberService>();
 builder.Services.AddScoped<IAdmin, AdminService>();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -30,17 +31,18 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
-app.MapRazorPages();
-
 app.UseHttpsRedirection();
 
 app.UseSession();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapStaticAssets();
+
 app.MapRazorPages()
    .WithStaticAssets();
 

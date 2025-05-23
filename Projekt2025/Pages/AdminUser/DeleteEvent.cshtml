@@ -5,9 +5,9 @@
     ViewData["Title"] = "DeleteEvent";
 }
 
-<h1>DeleteEvent</h1>
+<h1>Slet event</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Er du sikker på, at du vil slette dette event?</h3>
 <div>
     <h4>Event</h4>
     <hr />
@@ -55,7 +55,7 @@
             @Html.DisplayFor(model => model.Event.EventDateTimeEnd)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="Event.EventId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

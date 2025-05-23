@@ -4,13 +4,12 @@
     ViewBag.Title = "Admin Dashboard";
 }
 
-<h2>Welcome to the Admin Dashboard</h2>
-<p>You are successfully logged in as admin.</p>
+<h2>Velkommen til Admin Dashboard</h2>
+<p>Du er nu logget ind som Admin</p>
 
 <p>
-    <a asp-page="CreateEvent">Create New Event</a>
+    <a asp-page="CreateEvent">Opret nyt event</a>
 </p>
-
 
 
 @if (Model.Events != null && Model.Events.Any())

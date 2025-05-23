@@ -5,6 +5,7 @@ namespace Projekt2025.Pages.AdminUser
 {
     public class AdminUserModel : PageModel
     {
+        
         [BindProperty]
         public string Username { get; set; }
 

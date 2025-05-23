@@ -17,16 +17,14 @@ namespace Projekt2025.Pages.AdminUser
         {
             _context = context;
         }
+        [BindProperty]
+        public Event Event { get; set; } = default!;
 
         public IActionResult OnGet()
         {
             return Page();
         }
 
-        [BindProperty]
-        public Event Event { get; set; } = default!;
-
-        
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

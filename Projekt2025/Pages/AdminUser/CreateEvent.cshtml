@@ -1,18 +1,18 @@
 ﻿@page
 @model Projekt2025.Pages.AdminUser.CreateEventModel
 
-        @{
-        ViewData["Title"] = "CreateEvent";
-        }
-        
-        <h1>CreateEvent</h1>
-        
-    <h4>Event</h4>
-    <hr />
-    <div class="row">
+@{
+    ViewData["Title"] = "CreateEvent";
+}
+
+<h1>Opret event</h1>
+
+<h4>Event</h4>
+<hr />
+<div class="row">
     <div class="col-md-4">
-    <form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Event.Title" class="control-label"></label>
@@ -38,31 +38,36 @@
                 <span asp-validation-for="Event.Location" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <span class="text-danger">*</span>
                 <label asp-for="Event.Price" class="control-label"></label>
                 <input asp-for="Event.Price" class="form-control" />
                 <span asp-validation-for="Event.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <span class="text-danger">*</span>
                 <label asp-for="Event.Participants" class="control-label"></label>
                 <input asp-for="Event.Participants" class="form-control" />
                 <span asp-validation-for="Event.Participants" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <span class="text-danger">*</span>
                 <label asp-for="Event.EventDateTimeEnd" class="control-label"></label>
                 <input asp-for="Event.EventDateTimeEnd" class="form-control" />
                 <span asp-validation-for="Event.EventDateTimeEnd" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Opret" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="AdminDashboard">Back to List</a>
+    <a asp-page="AdminDashboard">Tilbage til dashboard</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

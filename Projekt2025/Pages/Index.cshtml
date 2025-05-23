@@ -7,10 +7,21 @@
 }
 
 
+<div class="main-container">
+    <div class="text-center text-black">
+        <h1 class="display-4">Velkommen til Zealand Zoo</h1>
+        <p class="lead">Din platform for at finde og deltage i events.</p>
+        <img src="/images/Zoo.jpg" alt="Logo">
+        <div class="section_text">
+            <a href="/Events/Events" class="btn btn-primary">Se vores events her</a>
+        </div>
+    </div>
+</div>
 
 
 @if (!isLoggedIn)
 {
+
     <form method="post" class="p-4 border rounded bg-white shadow-sm" style="max-width: 400px;">
         <h4 class="mb-3 text-center">Login</h4>
 
@@ -29,12 +40,15 @@
         <div class="d-grid">
             <button type="submit" class="btn btn-primary">Log ind</button>
         </div>
+        <div class="d-grid">
+            <a href="/Members/CreateMember" class="btn btn-secondary">Opret Bruger</a </div>
 
-        @if (!string.IsNullOrEmpty(Model.LoginError))
-        {
-            <div class="alert alert-danger mt-3">@Model.LoginError</div>
-        }
+            @if (!string.IsNullOrEmpty(Model.LoginError))
+            {
+                <div class="alert alert-danger mt-3">@Model.LoginError</div>
+            }
     </form>
+
 }
 else
 {
