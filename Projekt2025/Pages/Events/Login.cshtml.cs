@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Projekt2025.Models;
 
-namespace Projekt2025.Pages;
+namespace Projekt2025.Pages.Events;
 
 public class LoginModel : PageModel
 {
@@ -41,6 +41,6 @@ public class LoginModel : PageModel
 
         //Rykker info mellem "sessions", tænker det er den samme session med redicrect til en anden page, så vi kan bruge info fra en side til en anden!
         HttpContext.Session.SetInt32("MemberID", member.MemberId);
-        return RedirectToPage("/MyEvents");
+        return RedirectToPage("MyEvents");
     }
 }
