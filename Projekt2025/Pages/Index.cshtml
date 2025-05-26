@@ -7,49 +7,52 @@
 }
 
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
-<div class="main-container">
-    <div class="text-center text-black">
-        <h1 class="display-4 bg-white rounded-3">Velkommen til Zealand Zoo</h1>
-        <p class="lead bg-white rounded-3">Din platform for at finde og deltage i events.</p>
-        <img src="/images/Zoo.jpg" alt="Logo">
-        <div class="section_text">
-            <a href="/Events/Events" class="btn btn-primary">Se vores events her</a>
+@if (isLoggedIn)
+{
+    <div class="main-container">
+        <div class="text-center text-black">
+            <h1 class="display-4 bg-white rounded-3">Velkommen til Zealand Zoo</h1>
+            <p class="lead bg-white rounded-3">Din platform for at finde og deltage i events.</p>
+            <img src="/images/Zoo.jpg" alt="Logo">
+            <div class="section_text">
+                <a href="/Events/Events" class="btn btn-primary">Se vores events her</a>
+            </div>
         </div>
     </div>
-</div>
+}
+<body style="background-image: url('/images/Zealand.png'); background-size; 100px: cover; background-repeat: no-repeat; background-position: center;"></body>
 
-<body style="background-image: url('/images/Zealand.png'); background-size: cover; background-repeat: no-repeat; background-position: center;">
 
 @if (!isLoggedIn)
 {
 
-    <form method="post" class="p-4 border rounded bg-white shadow-sm" style="max-width: 400px;">
-        <h4 class="mb-3 text-center">Login</h4>
+        <form method="post" class="p-4 border rounded bg-white shadow-sm" style="max-width: 400px; width: 100%;">
+            <h4 class="mb-3 text-center">Login</h4>
 
-        <div class="mb-3">
-            <label asp-for="login.Username" class="form-label">Brugernavn</label>
-            <input asp-for="login.Username" class="form-control" />
-            <span asp-validation-for="login.Username" class="text-danger"></span>
-        </div>
+            <div class="mb-3">
+                <label asp-for="login.Username" class="form-label">Brugernavn</label>
+                <input asp-for="login.Username" class="form-control" />
+                <span asp-validation-for="login.Username" class="text-danger"></span>
+            </div>
 
-        <div class="mb-3">
-            <label asp-for="login.Password" class="form-label">Adgangskode</label>
-            <input asp-for="login.Password" type="password" class="form-control" />
-            <span asp-validation-for="login.Password" class="text-danger"></span>
-        </div>
+            <div class="mb-3">
+                <label asp-for="login.Password" class="form-label">Adgangskode</label>
+                <input asp-for="login.Password" type="password" class="form-control" />
+                <span asp-validation-for="login.Password" class="text-danger"></span>
+            </div>
 
-        <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Log ind</button>
-        </div>
-        <div class="d-grid">
-            <a href="/Members/CreateMember" class="btn btn-secondary">Opret Bruger</a </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Log ind</button>
+            </div>
+            <div class="d-grid">
+                <a href="/Members/CreateMember" class="btn btn-secondary">Opret Bruger</a </div>
 
-            @if (!string.IsNullOrEmpty(Model.LoginError))
-            {
-                <div class="alert alert-danger mt-3">@Model.LoginError</div>
-            }
-    </form>
+                @if (!string.IsNullOrEmpty(Model.LoginError))
+                {
+                    <div class="alert alert-danger mt-3">@Model.LoginError</div>
+                }
+        </form>
+    
 
 }
 else
@@ -58,4 +61,3 @@ else
         Du er allerede logget ind. <a asp-page="/Profile">Gå til din profil</a>
     </div>
 }
-</body>

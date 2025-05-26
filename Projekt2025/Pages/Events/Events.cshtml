@@ -35,13 +35,12 @@
                     <td>@evt.Location</td>
                     <td>@evt.Price.ToString("dk")</td>
                     <td>@evt.Participants</td>
+                    <td>
+                        <form method="post">
+                            <button type="submit" class="btn btn-success">Tilmeld</button>
+                        </form>
+                    </td>
                 </tr>
-                <td>
-                    <form method="post">
-                        <button type="submit" class="btn btn-success">Tilmeld</button>
-                    </form>
-                </td>
-
             }
         </tbody>
     </table>
