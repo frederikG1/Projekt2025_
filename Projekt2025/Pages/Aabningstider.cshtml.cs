@@ -13,7 +13,7 @@ namespace Projekt2025.Pages
             public string Tid { get; set; } = "Lukket";
             public bool ErAaben => !Tid.ToLower().Contains("lukket");
         }
-
+        
         // Listen med ugedage + tider
         public List<Aabningstid> Aabningstider { get; set; } = new();
 

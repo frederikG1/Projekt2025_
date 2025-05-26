@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http
 @{
     var isLoggedIn = Context.Session.GetInt32("MemberId") != null;
     var username = Context.Session.GetString("Username");
@@ -27,33 +27,34 @@
                     using Projekt2025.Models;
                     #line default
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Members/Members">Members</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Events/Login">Mine Events</a>
-                        <li class="nav-item">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Events/Events">Events</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/NewsPage">NewsPage</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Aabningstider">Åbningstider</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/AdminUser/AdminUser">Admin</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
+                @if (isLoggedIn)
+                {
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Members/Members">Members</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Events/Login">Mine Events</a>
+                                <li class="nav-item">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Events/Events">Events</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/NewsPage">NewsPage</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-page="/Aabningstider">Åbningstider</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-page="/AdminUser/AdminUser">Admin</a>
+                                    </li>
+                        </ul>
+                    </div>
+                }
             <div>
                 <ul class="navbar-nav ms-auto">
                     @if (isLoggedIn)

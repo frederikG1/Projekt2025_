@@ -56,7 +56,8 @@ namespace Projekt2025.Pages
                 !login.Password.Any(char.IsLower) ||
                 !login.Password.Any(char.IsDigit))
             {
-                ModelState.AddModelError("login.Password","Adgangskoden skal være mindst 8 tegn, og indeholde mindst ét stort bogstav, ét lille bogstav og ét tal."); 
+                ModelState.AddModelError("login.Password","Adgangskoden skal være mindst 8 tegn, " +
+                    "og indeholde mindst ét stort bogstav, ét lille bogstav og ét tal."); 
                 return Page();
             }
         
