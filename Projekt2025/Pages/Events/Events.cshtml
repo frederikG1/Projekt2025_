@@ -35,11 +35,20 @@
                     <td>@evt.Location</td>
                     <td>@evt.Price.ToString("dk")</td>
                     <td>@evt.Participants</td>
-                    <td>
-                        <form method="post">
-                            <button type="submit" class="btn btn-success">Tilmeld</button>
+
+
+                    <div>
+                        <strong>@evt.Title</strong> - @evt.EventDateTimeStart
+                        <form method="post" asp-page-handler ="Tilmeld" >
+                            <input type ="hidden" name=" eventId" value="@evt.EventId"/>
+                            <button type="submit"> Tilmeld</button>
                         </form>
-                    </td>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.TilmeldBesked))
+                    {
+                        <p style="color:green"> @Model.TilmeldBesked</p>
+                    }
                 </tr>
             }
         </tbody>
