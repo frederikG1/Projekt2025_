@@ -1,0 +1,69 @@
+Database Query:
+
+CREATE DATABASE ZealandZooCafe;
+GO
+
+USE ZealandZooCafe;
+GO
+
+CREATE TABLE StudyProgram (
+    StudyID INT PRIMARY KEY IDENTITY(1,1),
+    Name VARCHAR(30) UNIQUE NOT NULL
+);
+
+CREATE TABLE Member (
+    MemberID INT PRIMARY KEY IDENTITY(1,1),
+    Name VARCHAR(30) NOT NULL,
+    Email VARCHAR(50) NOT NULL,
+    Phone VARCHAR(15) NOT NULL,
+    Address VARCHAR(100) NOT NULL,
+    StudyID INT NOT NULL,
+    FOREIGN KEY (StudyID) REFERENCES StudyProgram(StudyID) ON DELETE CASCADE
+);
+
+CREATE TABLE Admin (
+    AdminID INT PRIMARY KEY IDENTITY(1,1),
+    Name VARCHAR(30) NOT NULL,
+    Email VARCHAR(50) NOT NULL UNIQUE,
+    Phone VARCHAR(15) NOT NULL,
+    Address VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Events (
+    EventID INT PRIMARY KEY IDENTITY(1,1),
+    Title VARCHAR(50) NOT NULL,
+    EventDateTimeStart DATETIME NOT NULL DEFAULT GETDATE(),
+    Description VARCHAR(200) NOT NULL,
+    Location VARCHAR(100) NOT NULL,
+    Price INT NOT NULL,
+    Participants INT NOT NULL,
+    EventDateTimeEnd DATETIME NOT NULL DEFAULT GETDATE()
+);
+
+CREATE TABLE Calendar (
+    CalendarID INT PRIMARY KEY,
+    EventID INT NOT NULL,
+    FOREIGN KEY (EventID) REFERENCES Events(EventID)
+);
+
+CREATE TABLE MemberEventList (
+    MemberID INT NOT NULL,
+    EventID INT NOT NULL,
+    PRIMARY KEY (MemberID, EventID),
+    FOREIGN KEY (MemberID) REFERENCES Member(MemberID),
+    FOREIGN KEY (EventID) REFERENCES Events(EventID)
+);
+
+CREATE TABLE Login (
+    AccountID INT PRIMARY KEY IDENTITY(1,1),
+    Username VARCHAR(30) NOT NULL UNIQUE,
+    Password VARCHAR(255) NOT NULL,
+    MemberID INT NOT NULL,
+    FOREIGN KEY (MemberID) REFERENCES Member(MemberID) ON DELETE CASCADE
+);
+
+CREATE TABLE NewsletterSubs (
+    Email NVARCHAR(255) PRIMARY KEY,
+    SubscribedAt DATETIME DEFAULT GETDATE(),
+    IsActive BIT NOT NULL DEFAULT 1
+);
