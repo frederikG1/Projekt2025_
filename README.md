@@ -1,5 +1,6 @@
-Database Query:
+## Database Query
 
+```sql
 CREATE DATABASE ZealandZooCafe;
 GO
 
