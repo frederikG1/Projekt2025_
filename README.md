@@ -6,13 +6,11 @@ GO
 USE ZealandZooCafe;
 GO
 
--- StudyProgram
 CREATE TABLE StudyProgram (
     StudyID INT PRIMARY KEY IDENTITY(1,1),
     Name VARCHAR(30) UNIQUE NOT NULL
 );
 
--- Member
 CREATE TABLE Member (
     MemberID INT PRIMARY KEY IDENTITY(1,1),
     Name VARCHAR(30) NOT NULL,
@@ -23,7 +21,6 @@ CREATE TABLE Member (
     FOREIGN KEY (StudyID) REFERENCES StudyProgram(StudyID) ON DELETE CASCADE
 );
 
--- Admin
 CREATE TABLE Admin (
     AdminID INT PRIMARY KEY IDENTITY(1,1),
     Name VARCHAR(30) NOT NULL,
@@ -32,7 +29,6 @@ CREATE TABLE Admin (
     Address VARCHAR(100) NOT NULL
 );
 
--- Events
 CREATE TABLE Events (
     EventID INT PRIMARY KEY IDENTITY(1,1),
     Title VARCHAR(50) NOT NULL,
@@ -44,14 +40,12 @@ CREATE TABLE Events (
     EventDateTimeEnd DATETIME NOT NULL DEFAULT GETDATE()
 );
 
--- Calendar
 CREATE TABLE Calendar (
     CalendarID INT PRIMARY KEY,
     EventID INT NOT NULL,
     FOREIGN KEY (EventID) REFERENCES Events(EventID)
 );
 
--- MemberEventList (Many-to-Many)
 CREATE TABLE MemberEventList (
     MemberID INT NOT NULL,
     EventID INT NOT NULL,
@@ -60,7 +54,6 @@ CREATE TABLE MemberEventList (
     FOREIGN KEY (EventID) REFERENCES Events(EventID)
 );
 
--- Login
 CREATE TABLE Login (
     AccountID INT PRIMARY KEY IDENTITY(1,1),
     Username VARCHAR(30) NOT NULL UNIQUE,
@@ -69,7 +62,6 @@ CREATE TABLE Login (
     FOREIGN KEY (MemberID) REFERENCES Member(MemberID) ON DELETE CASCADE
 );
 
--- NewsletterSubs
 CREATE TABLE NewsletterSubs (
     Email NVARCHAR(255) PRIMARY KEY,
     SubscribedAt DATETIME DEFAULT GETDATE(),
