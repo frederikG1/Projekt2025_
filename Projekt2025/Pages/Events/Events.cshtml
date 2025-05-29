@@ -29,8 +29,8 @@
             {
                 <tr>
                     <td>@evt.Title</td>
-                    <td>@evt.EventDateTimeStart:dd-MM-yyyy HH:mm</td>
-                    <td>@evt.EventDateTimeEnd:dd-MM-yyyy HH:mm</td>
+                    <td>@evt.EventDateTimeStart.ToString("dd-MM-yyyy HH:mm")</td>
+                    <td>@evt.EventDateTimeEnd.ToString("dd-MM-yyyy HH:mm")</td>
                     <td>@evt.Description</td>
                     <td>@evt.Location</td>
                     <td>@evt.Price.ToString("c", new System.Globalization.CultureInfo("da-DK"))</td>
