@@ -3,9 +3,9 @@
 @{
     ViewData["Title"] = "Events";
 }
-<a asp-page="/Events/EventKalender" class="btn btn-primary"> Vis events i kalenderen </a>
-<a asp-page="/Events/AlleEvents" class="btn btn-primary"> Se Alle Events </a>
 
+<a asp-page="/Events/EventKalender" class="btn btn-primary">Vis events i kalenderen</a>
+<a asp-page="/Events/AlleEvents" class="btn btn-primary">Se Alle Events</a>
 
 <h1>Upcoming Events</h1>
 
@@ -15,43 +15,50 @@
         <thead>
             <tr>
                 <th>Title</th>
-                <th>EventStart</th>
-                <th>EventEnd</th>
+                <th>Start</th>
+                <th>Slut</th>
                 <th>Beskrivelse</th>
                 <th>Lokation</th>
                 <th>Pris</th>
                 <th>Deltagere</th>
+                <th>Tilmelding</th>
             </tr>
         </thead>
         <tbody>
-
             @foreach (var evt in Model.Events)
             {
                 <tr>
                     <td>@evt.Title</td>
-                    <td>@evt.EventDateTimeStart.ToString("dd-MM-yyyy HH:mm")</td>
-                    <td>@evt.EventDateTimeEnd.ToString("dd-MM-yyyy HH:mm")</td>
+                    <td>@evt.EventDateTimeStart:dd-MM-yyyy HH:mm</td>
+                    <td>@evt.EventDateTimeEnd:dd-MM-yyyy HH:mm</td>
                     <td>@evt.Description</td>
                     <td>@evt.Location</td>
-                    <td>@evt.Price.ToString("dk")</td>
+                    <td>@evt.Price.ToString("c", new System.Globalization.CultureInfo("da-DK"))</td>
                     <td>@evt.Participants</td>
+                    <td>
+                        @if (HttpContext.Session.GetInt32("MemberID") != null)
+                        {
+                            <form method="post" asp-page-handler="Tilmeld">
+                                <input type="hidden" name="eventId" value="@evt.EventId" />
+                                <button type="submit" class="btn btn-success btn-sm">Tilmeld</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Login kræves</span>
+                        }
 
-
-                    <div>
-                        <strong>@evt.Title</strong> - @evt.EventDateTimeStart
-                        <form method="post" asp-page-handler ="Tilmeld" >
-                            <input type ="hidden" name=" eventId" value="@evt.EventId"/>
-                            <button type="submit"> Tilmeld</button>
-                        </form>
-                    </div>
-
-                    @if (!string.IsNullOrEmpty(Model.TilmeldBesked))
-                    {
-                        <p style="color:green"> @Model.TilmeldBesked</p>
-                    }
+                        @if (Model.TilmeldtEventId == evt.EventId && !string.IsNullOrWhiteSpace(Model.TilmeldBesked))
+                        {
+                            <div class="alert alert-info mt-1 p-1">@Model.TilmeldBesked</div>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
-
+}
+else
+{
+    <p>Der er ingen kommende events.</p>
 }
